@@ -1,0 +1,62 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DB_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model AgentProcessingFile {
+  agentId        String?
+  createdAt      DateTime  @default(now())
+  fileName       String?
+  id             String    @id @default(cuid())
+  processingDate DateTime?
+  updatedAt      DateTime  @updatedAt
+}
+
+model CaseModel {
+  assignedTo  String?
+  createdAt   DateTime             @default(now())
+  description String?
+  id          String               @id @default(cuid())
+  status      EnumCaseModelStatus?
+  title       String?
+  updatedAt   DateTime             @updatedAt
+}
+
+model AchTransaction {
+  amount          Float?
+  createdAt       DateTime  @default(now())
+  id              String    @id @default(cuid())
+  transactionDate DateTime?
+  transactionId   String?
+  updatedAt       DateTime  @updatedAt
+}
+
+model FileTemplate {
+  configuration Json?
+  createdAt     DateTime                   @default(now())
+  id            String                     @id @default(cuid())
+  name          String?
+  typeField     EnumFileTemplateTypeField?
+  updatedAt     DateTime                   @updatedAt
+}
+
+model FinanceAccountingFile {
+  content   Json?
+  createdAt DateTime @default(now())
+  fileName  String?
+  fileSize  Int?
+  id        String   @id @default(cuid())
+  updatedAt DateTime @updatedAt
+}
+
+enum EnumCaseModelStatus {
+  Option1
+}
+
+enum EnumFileTemplateTypeField {
+  Option1
+}
